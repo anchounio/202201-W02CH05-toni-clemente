@@ -1,5 +1,5 @@
 let array = [
-    [1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
     [0, 0, 1, 0, 0],
     [0, 0, 1, 0, 0],
     [0, 0, 1, 0, 0],
@@ -16,8 +16,6 @@ export const game = (array) => {
     ];
     for (let x = 0; x < array.length; x++) {
         for (let y = 0; y < array[x].length; y++) {
-            //console.log([x], [y]);
-
             let livingCellsBeside = 0;
             const myCoordinates = [x, y];
 
@@ -32,8 +30,7 @@ export const game = (array) => {
                 [x + 1, y + 1],
             ];
 
-            //filtrado de los bordes del juego para evitar -1 y 5
-            const filteredNeighbors = surrounded.filter(
+            const filteredsurround = surrounded.filter(
                 (coordinate) =>
                     coordinate[0] >= 0 &&
                     coordinate[0] < array.length &&
@@ -41,14 +38,12 @@ export const game = (array) => {
                     coordinate[1] < array.length
             );
 
-            //contador de celulas vivas alrededor de vivas y muertos
-            for (const coordinate of filteredNeighbors) {
+            for (const coordinate of filteredsurround) {
                 if (array[coordinate[0]][coordinate[1]] === 1) {
                     livingCellsBeside = livingCellsBeside + 1;
                 }
             }
 
-            // condiciones de vida o muerte
             if (array[myCoordinates[0]][myCoordinates[1]] === 1) {
                 if (livingCellsBeside < 2 || livingCellsBeside > 3) {
                     newArray[myCoordinates[0]][myCoordinates[1]] = 0;
@@ -64,5 +59,3 @@ export const game = (array) => {
     }
     return newArray;
 };
-
-//console.log(array);
